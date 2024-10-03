@@ -673,7 +673,7 @@ class Window(Gtk.ApplicationWindow):
         self.paned.connect('notify::position', self.delay_store_window_size)
         self.connect("configure-event", self.delay_store_window_size)
 
-        if not self.gsettings.get_boolean('settings-migrated'):
+        if not self.gsettings.get_boolean('settings-migrated') or self.gsettings.get_boolean('use-rc-file'):
             old_settings = Settings()
             loaded_files = old_settings.load()
             if old_settings.summary_view:
@@ -698,6 +698,7 @@ class Window(Gtk.ApplicationWindow):
             self.gsettings.set_value('virtual-midnight', GLib.Variant('(ii)', (vm.hour, vm.minute)))
             self.gsettings.set_boolean('gtk-completion', bool(old_settings.enable_gtk_completion))
             self.gsettings.set_boolean('settings-migrated', True)
+            self.gsettings.set_boolean('use-rc-file', bool(old_settings.use_rc_file))
             if loaded_files:
                 log.info(_('Settings from {filename} migrated to GSettings (org.gtimelog)').format(filename=old_settings.get_config_file()))
 

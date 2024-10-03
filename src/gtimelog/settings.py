@@ -46,6 +46,7 @@ class Settings(object):
     show_tray_icon = False
     prefer_app_indicator = True
     start_in_tray = False
+    use_rc_file = False
 
     report_style = 'plain'
 
@@ -115,6 +116,7 @@ class Settings(object):
                    str(self.prefer_app_indicator))
         config.set('gtimelog', 'report_style', str(self.report_style))
         config.set('gtimelog', 'start_in_tray', str(self.start_in_tray))
+        config.set('gtimelog', 'use_rc_file', str(self.start_in_tray))
         return config
 
     def load(self, filename=None):
@@ -146,6 +148,7 @@ class Settings(object):
                                                       'prefer_app_indicator')
         self.report_style = config.get('gtimelog', 'report_style')
         self.start_in_tray = config.getboolean('gtimelog', 'start_in_tray')
+        self.use_rc_file = config.getboolean('gtimelog', 'use_rc_file')
         return loaded_files
 
     def save(self, filename):

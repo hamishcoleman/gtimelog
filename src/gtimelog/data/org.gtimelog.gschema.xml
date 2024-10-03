@@ -30,6 +30,12 @@
             <description>Set to true after copying old settings from a gtimelogrc file.  If false, and if a gtimelogrc exists, settings from the gtimelogrc will be copied into GSettings.</description>
         </key>
 
+        <key name="use-rc-file" type="b">
+            <default>false</default>
+            <summary>Always load rc file</summary>
+            <description>Set to true if you wish to use a config management system, or if you do not wish to deal with regedit.  If true, and if a gtimelogrc exists, settings from the gtimelogrc will be always used.</description>
+        </key>
+
         <key name="detail-level" enum="org.gtimelog.DetailLevel">
             <default>"chronological"</default>
             <summary>Detail level</summary>
