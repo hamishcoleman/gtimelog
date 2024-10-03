@@ -518,6 +518,13 @@ class Window(Gtk.ApplicationWindow):
                 win.add_action(action)
                 setattr(self, action_name.replace('-', '_'), action)
 
+    def tray_toggle(self,icon):
+        isVisible = self.get_property("visible")
+        if (isVisible):
+            self.hide()
+        else:
+            self.show()
+
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self, application=app, icon_name='gtimelog')
 
@@ -549,6 +556,17 @@ class Window(Gtk.ApplicationWindow):
         main_window.remove(main_stack)
         self.add(main_stack)
         self.set_titlebar(headerbar)
+
+        # TODO:
+        # - load old config first
+        # - make start_in_tray work
+        # - make show_tray_icon work
+        # - bind key sequence to self.hide()
+
+        self.trayicon = Gtk.StatusIcon()
+        self.trayicon.set_from_file("/usr/share/icons/hicolor/48x48/apps/gtimelog.png")
+        self.trayicon.set_visible(True)
+        self.trayicon.connect('activate', self.tray_toggle)
 
         # Cannot store these in the same .ui file nor hook them up in the
         # .ui because glade doesn't support that and strips both the
